@@ -47,8 +47,6 @@ class _SearchPageState extends State<SearchPage> {
             onPressed: () {},
             icon: Icon(Icons.search),
           ),
-          suffixIcon:
-              IconButton(onPressed: () {}, icon: Icon(Icons.filter_list)),
         ),
       ),
     );
