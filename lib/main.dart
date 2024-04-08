@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:groove/pages/Search.dart';
+import 'package:groove/pages/Song.dart';
 
-List pages = [SearchPage()];
 void main() {
   runApp(const MyApp());
 }
 
 class MyApp extends StatefulWidget {
-  const MyApp({super.key});
+  const MyApp({Key? key}) : super(key: key);
 
   @override
   _MyAppState createState() => _MyAppState();
@@ -15,11 +15,11 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   int _selectedIndex = 0;
-  Color PrimaryColor = const Color(292729);
-  Color SecondaryColor = const Color(0xFF055A60);
-  Color AccentColor = const Color(0xFFD1C97F);
 
-  final List<Widget> _pages = [SearchPage()];
+  final List<Widget> _pages = [
+    SearchPage(),
+    SongPage(), // Include SongPage in the list
+  ];
 
   void _onItemTapped(int index) {
     setState(() {
@@ -38,17 +38,22 @@ class _MyAppState extends State<MyApp> {
           onTap: _onItemTapped,
           items: const <BottomNavigationBarItem>[
             BottomNavigationBarItem(
-              icon: Icon(Icons.menu),
-              label: 'Menu',
+              icon: Icon(Icons.home_filled),
+              label: 'Home',
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.check_box),
-              label: 'Todo',
+              icon: Icon(Icons.music_note_rounded),
+              label: 'Samples',
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.person),
-              label: 'Contact',
+              icon: Icon(Icons.radio_outlined),
+              label: 'Radio',
             ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.account_circle_outlined),
+              label: 'My List',
+            ),
+            
           ],
         ),
       ),

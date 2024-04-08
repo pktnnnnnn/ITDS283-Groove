@@ -10,7 +10,7 @@ class ArtworkImage extends StatelessWidget {
       width: 340,
       height: 340,
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(36),
+        borderRadius: BorderRadius.circular(20),
         image: DecorationImage(
           image: NetworkImage(image),
           fit: BoxFit.cover,

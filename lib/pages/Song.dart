@@ -1,20 +1,21 @@
+import 'package:audio_video_progress_bar/audio_video_progress_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:groove/Image/ArtworkImage.dart';
 
 void main() {
   runApp(MaterialApp(
-    home: const SearchPage(),
+    home: const SongPage(),
   ));
 }
 
-class SearchPage extends StatefulWidget {
-  const SearchPage({Key? key}) : super(key: key);
+class SongPage extends StatefulWidget {
+  const SongPage({Key? key}) : super(key: key);
 
   @override
-  State<SearchPage> createState() => _SearchPageState();
+  State<SongPage> createState() => _SongPageState();
 }
 
-class _SearchPageState extends State<SearchPage> {
+class _SongPageState extends State<SongPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -25,8 +26,35 @@ class _SearchPageState extends State<SearchPage> {
         ),
         Expanded(
             child: Center(
-          child: ArtworkImage(image: "https://images.prismic.io/milanote/df7eeb83a07162b45ac2e882cac055de9411054a_cover.jpg?auto=compress,format"),
-        ))
+          child: ArtworkImage(
+              image:
+                  "https://qodeinteractive.com/magazine/wp-content/uploads/2020/06/16-Tame-Impala.jpg"),
+        )),
+        Expanded(
+          child: Padding(
+            padding: EdgeInsets.all(24),
+            child: Column(children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [Text("Song Title"), Text("Artist")],
+                  ),
+                  Icon(Icons.add_circle_outline_rounded)
+                ],
+              ),
+              ProgressBar(
+                progress: Duration(milliseconds: 1000),
+                buffered: Duration(milliseconds: 2000),
+                total: Duration(milliseconds: 5000),
+                onSeek: (duration) {
+                  print('User selected a new time: $duration');
+                },
+              ),
+            ]),
+          ),
+        )
       ]),
     );
   }
