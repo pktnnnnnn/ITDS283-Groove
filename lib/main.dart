@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:groove/pages/Search.dart';
 
-List pages = [
-  SearchPage()
-];
+List pages = [SearchPage()];
 void main() {
   runApp(const MyApp());
 }
@@ -17,10 +15,11 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   int _selectedIndex = 0;
+  Color PrimaryColor = const Color(292729);
+  Color SecondaryColor = const Color(0xFF055A60);
+  Color AccentColor = const Color(0xFFD1C97F);
 
-  final List<Widget> _pages = [
-   SearchPage()
-  ];
+  final List<Widget> _pages = [SearchPage()];
 
   void _onItemTapped(int index) {
     setState(() {
