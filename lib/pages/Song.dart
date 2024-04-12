@@ -44,14 +44,47 @@ class _SongPageState extends State<SongPage> {
                   Icon(Icons.add_circle_outline_rounded)
                 ],
               ),
+              SizedBox(
+                height: 16,
+              ),
               ProgressBar(
                 progress: Duration(milliseconds: 1000),
                 buffered: Duration(milliseconds: 2000),
                 total: Duration(milliseconds: 5000),
+                baseBarColor: Colors.blueAccent,
+                thumbColor: Colors.yellow,
+                progressBarColor: Colors.red,
                 onSeek: (duration) {
                   print('User selected a new time: $duration');
                 },
               ),
+              SizedBox(
+                height: 16,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  IconButton(
+                    onPressed: () {},
+                    icon: Icon(Icons.skip_previous_rounded),
+                  ),
+                  IconButton(
+                    onPressed: () {},
+                    icon: Icon(Icons.play_arrow_rounded),
+                  ),
+                  IconButton(
+                    onPressed: () {},
+                    icon: Icon(Icons.skip_next_rounded),
+                  ),
+                ],
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Icon(Icons.shuffle_rounded),
+                  Icon(Icons.repeat_rounded),
+                ],
+              )
             ]),
           ),
         )
@@ -61,14 +94,14 @@ class _SongPageState extends State<SongPage> {
 
   Container OptionButton() {
     return Container(
-      margin: EdgeInsets.only(top: 60, left: 20, right: 20),
+      margin: EdgeInsets.only(top: 40, left: 20, right: 20),
       child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Transform.rotate(
             angle: -1.5708, // 90 degrees in radians
             child: Icon(Icons.arrow_back_ios_new_rounded),
           ),
-          Spacer(),
           Icon(Icons.more_horiz_rounded)
         ],
       ),
