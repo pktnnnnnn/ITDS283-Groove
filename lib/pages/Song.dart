@@ -1,6 +1,6 @@
 import 'package:audio_video_progress_bar/audio_video_progress_bar.dart';
 import 'package:flutter/material.dart';
-import 'package:groove/Image/ArtworkImage.dart';
+import 'package:groove/assets/ArtworkImage.dart';
 
 void main() {
   runApp(MaterialApp(
@@ -78,11 +78,14 @@ class _SongPageState extends State<SongPage> {
                   ),
                 ],
               ),
+              SizedBox(
+                height: 16,
+              ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Icon(Icons.shuffle_rounded),
-                  Icon(Icons.repeat_rounded),
+                  Icon(Icons.loop_rounded),
                 ],
               )
             ]),
