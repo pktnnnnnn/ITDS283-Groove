@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:groove/assets/color.dart';
 import 'package:groove/pages/Search.dart';
 import 'package:groove/pages/Song.dart';
 
@@ -30,11 +31,20 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      title: 'Groove',
+      theme: ThemeData(
+        fontFamily: 'Outfit',
+        scaffoldBackgroundColor: bgcolor,
+      ),
       home: Scaffold(
         body: _pages[_selectedIndex],
         bottomNavigationBar: BottomNavigationBar(
+          type: BottomNavigationBarType.fixed,
           currentIndex: _selectedIndex,
-          selectedItemColor: Colors.amber[800],
+          selectedItemColor: primaryColor, // Set selected item color
+          unselectedItemColor: Colors.white70, // Set unselected item color
+          backgroundColor:
+              secondaryColor, // Set navigation bar background color
           onTap: _onItemTapped,
           items: const <BottomNavigationBarItem>[
             BottomNavigationBarItem(
@@ -50,10 +60,9 @@ class _MyAppState extends State<MyApp> {
               label: 'Radio',
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.account_circle_outlined),
-              label: 'My List',
-            ),
-            
+              icon: Icon(Icons.person),
+              label: 'Profile',
+            )
           ],
         ),
       ),
