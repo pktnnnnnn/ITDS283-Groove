@@ -1,7 +1,6 @@
-import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:groove/pages/AppBar.dart';
+import 'package:flutter/material.dart';
 
 class SearchPage extends StatefulWidget {
   const SearchPage({Key? key}) : super(key: key);
@@ -11,24 +10,6 @@ class SearchPage extends StatefulWidget {
 }
 
 class _SearchPageState extends State<SearchPage> {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: MainAppBar(context),
-    );
-  }
-
-  
-}
-
-class SearchPage2 extends StatefulWidget {
-  const SearchPage2({Key? key}) : super(key: key);
-
-  @override
-  State<SearchPage2> createState() => _SearchPage2State();
-}
-
-class _SearchPage2State extends State<SearchPage2> {
   String name = "";
   List<Map<String, dynamic>> data = [
     // Your data here
