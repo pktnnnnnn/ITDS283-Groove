@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:groove/pages/AppBar.dart';
 
 class SearchPage extends StatefulWidget {
   const SearchPage({Key? key}) : super(key: key);
@@ -13,22 +14,11 @@ class _SearchPageState extends State<SearchPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Groove'),
-        actions: [
-          IconButton(
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => SearchPage2()),
-              );
-            },
-            icon: const Icon(Icons.search_rounded),
-          )
-        ],
-      ),
+      appBar: MainAppBar(context),
     );
   }
+
+  
 }
 
 class SearchPage2 extends StatefulWidget {
