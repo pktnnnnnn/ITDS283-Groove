@@ -8,7 +8,6 @@ environment:
 
 dependencies:
   flutter:
-
     sdk: flutter
   audio_video_progress_bar: ^2.0.2
   cloud_firestore: ^4.16.1
@@ -22,7 +21,3 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
-  fonts:
-    - family: Outfit
-      fonts:
-        - asset: assets/fonts
