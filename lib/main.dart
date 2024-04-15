@@ -1,9 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:firebase_core/firebase_core.dart'; // Import Firebase Core
 import 'package:groove/assets/color.dart';
 import 'package:groove/pages/Search.dart';
 import 'package:groove/pages/Song.dart';
 
-void main() {
+void main() async {
+  // Initialize Firebase before running the app
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+
+  // Run the app
   runApp(const MyApp());
 }
 
@@ -61,7 +67,7 @@ class _MyAppState extends State<MyApp> {
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.person),
-              label: 'Profile',
+              label: 'My list',
             )
           ],
         ),
