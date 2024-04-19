@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart'; // Import Firebase Core
 import 'package:groove/assets/color.dart';
-import 'package:groove/pages/Search.dart';
+import 'package:groove/pages/Radio.dart';
 import 'package:groove/pages/Song.dart';
 
 void main() async {
@@ -24,7 +24,7 @@ class _MyAppState extends State<MyApp> {
   int _selectedIndex = 0;
 
   final List<Widget> _pages = [
-    SearchPage(),
+    RadioPage(), // Include RadioPage in the list
     SongPage(), // Include SongPage in the list
   ];
 
