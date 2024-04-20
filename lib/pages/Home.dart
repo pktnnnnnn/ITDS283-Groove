@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:groove/pages/Profile.dart';
 import 'package:groove/pages/Search.dart';
 import 'package:groove/pages/Song.dart';
 
@@ -23,6 +24,7 @@ class _MyAppState extends State<MyApp> {
     SongPage(),
     RadioPage(),
     MyListPage(),
+    ProfilePage()
   ];
 
   void _onItemTapped(int index) {
@@ -54,6 +56,10 @@ class _MyAppState extends State<MyApp> {
             BottomNavigationBarItem(
               icon: Icon(Icons.radio_outlined),
               label: 'Radio',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.playlist_add_check_circle_outlined),
+              label: 'My List',
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.account_circle_outlined),
