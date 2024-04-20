@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:groove/pages/Song.dart';
 import 'package:groove/main.dart';
-
+import 'package:groove/pages/Mylist.dart';
+import 'package:groove/pages/Radio.dart';
 
 
 
@@ -19,7 +20,8 @@ class _MyAppState extends State<MyApp> {
   final List<Widget> _pages = [
     HomePage(),
     SongPage(),
-    LoginPage(),
+    RadioPage(),
+    MyListPage(),
   ];
 
   void _onItemTapped(int index) {
