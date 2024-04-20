@@ -84,8 +84,8 @@ class _SongPageState extends State<SongPage> {
                       });
                     },
                     child: Icon((click == false)
-                        ? Icons.add_circle_outline_outlined
-                        : Icons.verified_rounded),
+                        ? Icons.favorite_rounded
+                        : Icons.favorite_border_rounded),
                   )
                 ],
               ),
@@ -100,16 +100,13 @@ class _SongPageState extends State<SongPage> {
                     final seekposition = Duration(seconds: value.toInt());
                     await player.seek(seekposition);
                   }),
-              ProgressBar(
-                progress: position,
-                total: duration,
-                baseBarColor: Colors.blueAccent,
-                thumbColor: Colors.yellow,
-                progressBarColor: Colors.red,
-                onSeek: (duration) {
-                  print('User selected a new time: $duration');
-                },
-              ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(formatTime(position)),
+                      Text(formatTime(duration))
+                    ],
+                  ),
               SizedBox(
                 height: 16,
               ),
@@ -123,8 +120,8 @@ class _SongPageState extends State<SongPage> {
                   IconButton(
                     onPressed: playerAction,
                     icon: isPlaying
-                        ? Icon(Icons.play_arrow_rounded)
-                        : Icon(Icons.pause_rounded),
+                        ? Icon(Icons.pause_rounded)
+                        : Icon(Icons.play_arrow_rounded),
                   ),
                   IconButton(
                     onPressed: () {},
