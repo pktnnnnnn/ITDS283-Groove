@@ -1,6 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:groove/pages/Home.dart';
 
+// class HomePage extends StatelessWidget {
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       appBar: AppBar(
+//         title: Text('Home Page'),
+//       ),
+//       body: Center(
+//         child: Text('Welcome to the Home Page'),
+//       ),
+//     );
+//   }
+// }
 
 class LoginPage extends StatelessWidget {
   @override
@@ -61,8 +74,7 @@ class LoginPage extends StatelessWidget {
                   ElevatedButton(
                     onPressed: () {
                       // Add your login functionality here
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => HomePage()),
-    );
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => MyApp()));
                     },
                     child: Text('Login'),
                   ),
@@ -71,7 +83,6 @@ class LoginPage extends StatelessWidget {
               SizedBox(height: 20.0),
               TextButton(
                 onPressed: () {
-
                   // Add your create account functionality here
                 },
                 child: Text(
@@ -86,6 +97,48 @@ class LoginPage extends StatelessWidget {
     );
   }
 }
+
+// class _MyAppState extends State<MyApp> {
+//   int _selectedIndex = 0;
+
+//   final List<Widget> _pages = [
+//     LoginPage(),
+//     HomePage(),
+//   ];
+
+//   void _onItemTapped(int index) {
+//     setState(() {
+//       _selectedIndex = index;
+//     });
+//   }
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return MaterialApp(
+//       home: Scaffold(
+//         appBar: AppBar(
+//           title: Text('My App'),
+//         ),
+//         body: _pages[_selectedIndex],
+//         bottomNavigationBar: _selectedIndex == 1 ? BottomNavigationBar(
+//           currentIndex: _selectedIndex,
+//           selectedItemColor: Colors.amber[800],
+//           onTap: _onItemTapped,
+//           items: const <BottomNavigationBarItem>[
+//             BottomNavigationBarItem(
+//               icon: Icon(Icons.home_filled),
+//               label: 'Home',
+//             ),
+//             BottomNavigationBarItem(
+//               icon: Icon(Icons.account_circle_outlined),
+//               label: 'My Account',
+//             ),
+//           ],
+//         ) : null,
+//       ),
+//     );
+//   }
+// }
 
 void main() {
   runApp(MaterialApp(
