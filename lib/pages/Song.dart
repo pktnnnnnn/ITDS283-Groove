@@ -16,6 +16,7 @@ class SongPage extends StatefulWidget {
 }
 
 class _SongPageState extends State<SongPage> {
+  bool click = true;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -41,7 +42,14 @@ class _SongPageState extends State<SongPage> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [Text("Song Title"), Text("Artist")],
                   ),
-                  Icon(Icons.add_circle_outline_rounded)
+                  ElevatedButton(
+                    onPressed: () {
+                      setState(() {
+                        click = !click;
+                      });
+                    },
+                    child: Icon((click ==false)? Icons.add_circle_outline_outlined:Icons.verified_rounded),
+                  )
                 ],
               ),
               SizedBox(
