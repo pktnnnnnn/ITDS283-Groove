@@ -38,6 +38,8 @@ class _MyAppState extends State<MyApp> {
         body: _pages[_selectedIndex],
         bottomNavigationBar: BottomNavigationBar(
           currentIndex: _selectedIndex,
+          
+          unselectedItemColor: Colors.grey,
           selectedItemColor: Colors.amber[800],
           onTap: _onItemTapped,
           items: const <BottomNavigationBarItem>[
