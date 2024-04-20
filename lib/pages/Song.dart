@@ -48,7 +48,7 @@ class _SongPageState extends State<SongPage> {
                         click = !click;
                       });
                     },
-                    child: Icon((click ==false)? Icons.add_circle_outline_outlined:Icons.verified_rounded),
+                    child: Icon((click ==false)? Icons.favorite_border_rounded:Icons.favorite),
                   )
                 ],
               ),
