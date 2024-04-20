@@ -21,7 +21,7 @@ class _SongPageState extends State<SongPage> {
   final player = AudioPlayer();
   bool isPlaying = false;
   String songUrl =
-      "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3";
+      "https://firebasestorage.googleapis.com/v0/b/groove-c25e1.appspot.com/o/keshi%20-%20less%20of%20you%20(Audio).mp3?alt=media&token=055b37e6-442a-4fa9-b890-2eae96b53a88";
   Duration duration = Duration.zero;
   Duration position = Duration.zero;
   @override
