@@ -1,6 +1,7 @@
+import 'package:audio_video_progress_bar/audio_video_progress_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:groove/assets/ArtworkImage.dart';
-import 'package:music/music.dart';
+import 'package:just_audio/just_audio.dart';
 
 void main() {
   runApp(MaterialApp(
@@ -16,194 +17,135 @@ class SongPage extends StatefulWidget {
 }
 
 class _SongPageState extends State<SongPage> {
-  late MusicPlayer player;
-  late Music music;
+  bool click = true;
+  final player = AudioPlayer();
   bool isPlaying = false;
-  bool isFavorite = false;
-
+  String songUrl =
+      "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3";
+  Duration duration = Duration.zero;
+  Duration position = Duration.zero;
   @override
   void initState() {
     super.initState();
-    player = MusicPlayer(
-      onLoading: _onLoading,
-      onPlaying: _onPlaying,
-      onPaused: _onPaused,
-      onStopped: _onStopped,
-      onCompleted: _onCompleted,
-      onDuration: _onDuration,
-      onPosition: _onPosition,
-      onError: _onError,
-    );
-
-    music = Music(
-      id: '_KzHGbpxMOY',
-      artist: '88rising',
-      title: 'Rich Brian, NIKI, & Warren Hue - California',
-      image: 'https://i.ytimg.com/vi/_KzHGbpxMOY/mqdefault.jpg',
-      url: 'https://media1.vocaroo.com/mp3/1ga9focwkrUs',
-      duration: Duration(seconds: 230),
-    );
+    bindPlayer();
   }
 
-  @override
-  void dispose() {
-    player.dispose();
-    super.dispose();
-  }
-
-  // Music player callbacks
-  void _onLoading() {
-    // Handle loading state if needed
-  }
-
-  void _onPlaying() {
-    setState(() {
-      isPlaying = true;
+  bindPlayer() async {
+    await player.setUrl(songUrl);
+    duration = player.duration!;
+    setState(() {});
+    player.positionStream.listen((event) {
+      Duration temp = event as Duration;
+      position = temp;
+      setState(() {});
     });
   }
 
-  void _onPaused() {
+  playerAction() {
+    if (isPlaying) {
+      player.pause();
+    } else {
+      player.play();
+    }
     setState(() {
-      isPlaying = false;
+      isPlaying = !isPlaying;
     });
-  }
-
-  void _onStopped() {
-    setState(() {
-      isPlaying = false;
-    });
-  }
-
-  void _onCompleted() {
-    setState(() {
-      isPlaying = false;
-    });
-  }
-
-  void _onDuration(Duration duration) {
-    // Handle duration if needed
-  }
-
-  void _onPosition(Duration position) {
-    // Handle position if needed
-  }
-
-  void _onError(String error) {
-    // Handle error if needed
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        children: [
-          OptionButton(),
-          SizedBox(
-            height: 40,
-          ),
-          Expanded(
+      body: Column(children: [
+        OptionButton(),
+        SizedBox(
+          height: 40,
+        ),
+        Expanded(
             child: Center(
-              child: ArtworkImage(
-                image: music.image,
-              ),
-            ),
-          ),
-          Expanded(
-            child: Padding(
-              padding: EdgeInsets.all(24),
-              child: Column(
+          child: ArtworkImage(
+              image:
+                  "https://qodeinteractive.com/magazine/wp-content/uploads/2020/06/16-Tame-Impala.jpg"),
+        )),
+        Expanded(
+          child: Padding(
+            padding: EdgeInsets.all(24),
+            child: Column(children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(music.title),
-                          Text(music.artist),
-                        ],
-                      ),
-                      IconButton(
-                        onPressed: () {
-                          setState(() {
-                            isFavorite = !isFavorite;
-                          });
-                        },
-                        icon: Icon(
-                          isFavorite
-                              ? Icons.favorite
-                              : Icons.favorite_border,
-                        ),
-                      ),
-                    ],
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [Text("Song Title"), Text("Artist")],
                   ),
-                  SizedBox(
-                    height: 16,
-                  ),
-                  Slider(
-                    value: 0, // Add functionality for playback position
-                    onChanged: (double value) {
-                      // Update playback position
+                  ElevatedButton(
+                    onPressed: () {
+                      setState(() {
+                        click = !click;
+                      });
                     },
+                    child: Icon((click == false)
+                        ? Icons.add_circle_outline_outlined
+                        : Icons.verified_rounded),
+                  )
+                ],
+              ),
+              SizedBox(
+                height: 16,
+              ),
+              Slider(
+                  value: position.inSeconds.toDouble(),
+                  min: 0,
+                  max: duration.inSeconds.toDouble(),
+                  onChanged: (value) async {
+                    final seekposition = Duration(seconds: value.toInt());
+                    await player.seek(seekposition);
+                  }),
+              ProgressBar(
+                progress: position,
+                total: duration,
+                baseBarColor: Colors.blueAccent,
+                thumbColor: Colors.yellow,
+                progressBarColor: Colors.red,
+                onSeek: (duration) {
+                  print('User selected a new time: $duration');
+                },
+              ),
+              SizedBox(
+                height: 16,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  IconButton(
+                    onPressed: () {},
+                    icon: Icon(Icons.skip_previous_rounded),
                   ),
-                  SizedBox(
-                    height: 16,
+                  IconButton(
+                    onPressed: playerAction,
+                    icon: isPlaying
+                        ? Icon(Icons.play_arrow_rounded)
+                        : Icon(Icons.pause_rounded),
                   ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      IconButton(
-                        onPressed: () {
-                          // Implement skip previous functionality
-                        },
-                        icon: Icon(Icons.skip_previous),
-                      ),
-                      IconButton(
-                        onPressed: () {
-                          if (isPlaying) {
-                            player.pause();
-                          } else {
-                            player.play(music);
-                          }
-                        },
-                        icon: Icon(
-                          isPlaying ? Icons.pause : Icons.play_arrow,
-                        ),
-                      ),
-                      IconButton(
-                        onPressed: () {
-                          // Implement skip next functionality
-                        },
-                        icon: Icon(Icons.skip_next),
-                      ),
-                    ],
-                  ),
-                  SizedBox(
-                    height: 16,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      IconButton(
-                        onPressed: () {
-                          // Implement shuffle functionality
-                        },
-                        icon: Icon(Icons.shuffle),
-                      ),
-                      IconButton(
-                        onPressed: () {
-                          // Implement repeat functionality
-                        },
-                        icon: Icon(Icons.repeat),
-                      ),
-                    ],
+                  IconButton(
+                    onPressed: () {},
+                    icon: Icon(Icons.skip_next_rounded),
                   ),
                 ],
               ),
-            ),
+              SizedBox(
+                height: 16,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Icon(Icons.shuffle_rounded),
+                  Icon(Icons.loop_rounded),
+                ],
+              )
+            ]),
           ),
-        ],
-      ),
+        )
+      ]),
     );
   }
 
@@ -215,11 +157,17 @@ class _SongPageState extends State<SongPage> {
         children: [
           Transform.rotate(
             angle: -1.5708, // 90 degrees in radians
-            child: Icon(Icons.arrow_back_ios_new),
+            child: Icon(Icons.arrow_back_ios_new_rounded),
           ),
-          Icon(Icons.more_horiz),
+          Icon(Icons.more_horiz_rounded)
         ],
       ),
     );
   }
+}
+
+String formatTime(Duration duration) {
+  String minutes = duration.inMinutes.remainder(60).toString().padLeft(2, '0');
+  String seconds = duration.inSeconds.remainder(60).toString().padLeft(2, '0');
+  return "$minutes:$seconds";
 }
