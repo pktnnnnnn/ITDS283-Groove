@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:groove/pages/Search.dart';
 import 'package:groove/pages/Song.dart';
-import 'package:groove/main.dart';
+
 import 'package:groove/pages/Mylist.dart';
 import 'package:groove/pages/Radio.dart';
 
@@ -75,6 +76,7 @@ class HomePage extends StatelessWidget {
             icon: Icon(Icons.search),
             onPressed: () {
               // Add your search functionality here
+              Navigator.push(context, MaterialPageRoute(builder: (context) => SearchPage()));
             },
           ),
         ],
