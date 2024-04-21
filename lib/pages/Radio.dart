@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 class RadioPage extends StatefulWidget {
@@ -25,24 +26,38 @@ class _RadioPageState extends State<RadioPage> {
       body: ListView(
         padding: EdgeInsets.all(20.0),
         children: [
-          Text(
-            'Top Songs',
-            style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
-          ),
-          SizedBox(height: 10.0),
-          Column(
-            children: List.generate(
-              5,
-              (index) => Card(
-                elevation: 2.0,
-                child: ListTile(
-                  leading: Text('${index + 1}'),
-                  title: Text('Song Title'),
-                  subtitle: Text('Artist'),
-                  trailing: Icon(Icons.more_vert),
-                ),
-              ),
-            ),
+          FutureBuilder<QuerySnapshot>(
+            future: FirebaseFirestore.instance.collection('Song').limit(5).get(),
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return Center(child: CircularProgressIndicator());
+              }
+              final songs = snapshot.data!.docs;
+              return Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'Top Songs',
+                    style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
+                  ),
+                  SizedBox(height: 10.0),
+                  Column(
+                    children: List.generate(
+                      songs.length,
+                      (index) => Card(
+                        elevation: 2.0,
+                        child: ListTile(
+                          leading: Text('${index + 1}'),
+                          title: Text(songs[index]['title'] ?? 'Unknown'),
+                          subtitle: Text(songs[index]['artist'] ?? 'Unknown'),
+                          trailing: Icon(Icons.more_vert),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              );
+            },
           ),
           SizedBox(height: 20.0),
           Text(
@@ -58,7 +73,21 @@ class _RadioPageState extends State<RadioPage> {
               _buildCircularCard(),
             ],
           ),
-
+          SizedBox(height: 20.0),
+          Card(
+            elevation: 2.0,
+            child: ListTile(
+              leading: Icon(Icons.play_arrow),
+              title: Text('Song Title'),
+              subtitle: Text('Artist'),
+              trailing: IconButton(
+                icon: Icon(Icons.more_vert),
+                onPressed: () {
+                  // Add your more actions functionality here
+                },
+              ),
+            ),
+          ),
         ],
       ),
 
