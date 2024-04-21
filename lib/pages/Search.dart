@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:groove/pages/Home.dart';
 import 'package:groove/pages/Song.dart';
 
 class SearchPage extends StatefulWidget {
@@ -24,7 +25,9 @@ class _SearchPageState extends State<SearchPage> {
       appBar: AppBar(
         leading: IconButton(
           onPressed: () {
-            Navigator.pop(context);
+            Navigator.push(
+                context, MaterialPageRoute(builder: (context) => MyApp()));
+            ;
           },
           icon: Icon(Icons.arrow_back_ios_new_rounded),
         ),
@@ -115,6 +118,6 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   runApp(MaterialApp(
-    home: SearchPage(),
+    home: MyApp(),
   ));
 }

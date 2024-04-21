@@ -61,7 +61,8 @@ class LoginPage extends StatelessWidget {
                   ElevatedButton(
                     onPressed: () {
                       // Add your login functionality here
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => MyApp()));
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) => MyApp()));
                     },
                     child: Text('Login'),
                   ),
@@ -84,8 +85,6 @@ class LoginPage extends StatelessWidget {
     );
   }
 }
-
-
 
 // void main() {
 //   runApp(MaterialApp(

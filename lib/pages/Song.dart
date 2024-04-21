@@ -32,7 +32,6 @@ class SongPage extends StatefulWidget {
 }
 
 class _SongPageState extends State<SongPage> {
-  
   final player = AudioPlayer();
   bool click = true;
   bool isPlaying = false;
@@ -77,7 +76,8 @@ class _SongPageState extends State<SongPage> {
         Expanded(
             child: Center(
           child: ArtworkImage(
-              image:widget.image,),
+            image: widget.image,
+          ),
         )),
         Expanded(
           child: Padding(
@@ -113,13 +113,13 @@ class _SongPageState extends State<SongPage> {
                     final seekposition = Duration(seconds: value.toInt());
                     await player.seek(seekposition);
                   }),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(formatTime(position)),
-                      Text(formatTime(duration))
-                    ],
-                  ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(formatTime(position)),
+                  Text(formatTime(duration))
+                ],
+              ),
               SizedBox(
                 height: 16,
               ),
@@ -166,16 +166,17 @@ class _SongPageState extends State<SongPage> {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           IconButton(
-                    onPressed: () {
-                      player.pause();
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => MyApp()));
-                    },
-                    icon: Icon(Icons.arrow_drop_down_rounded),
-                  ),
-                  IconButton(
-                    onPressed: () {},
-                    icon: Icon(Icons.more_horiz_rounded),
-                  ),
+            onPressed: () {
+              player.pause();
+              Navigator.push(
+                  context, MaterialPageRoute(builder: (context) => MyApp()));
+            },
+            icon: Icon(Icons.arrow_drop_down_rounded),
+          ),
+          IconButton(
+            onPressed: () {},
+            icon: Icon(Icons.more_horiz_rounded),
+          ),
         ],
       ),
     );
@@ -187,5 +188,3 @@ String formatTime(Duration duration) {
   String seconds = duration.inSeconds.remainder(60).toString().padLeft(2, '0');
   return "$minutes:$seconds";
 }
-
-
