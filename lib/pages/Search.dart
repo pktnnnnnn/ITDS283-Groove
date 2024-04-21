@@ -11,28 +11,12 @@ class SearchPage extends StatefulWidget {
 
 class _SearchPageState extends State<SearchPage> {
   String name = "";
-  List<Map<String, dynamic>> data = [
-    // Your data here
-    {
-      'title': 'Less of you',
-      'artist': 'Keshi',
-      'image': 'https://i.pinimg.com/564x/0f/e1/58/0fe158de14c78a315fc87a01da586ddd.jpg',
-      'audio':
-          'https://firebasestorage.googleapis.com/v0/b/groove-c25e1.appspot.com/o/keshi%20-%20less%20of%20you%20(Audio).mp3?alt=media&token=055b37e6-442a-4fa9-b890-2eae96b53a88'
-    },
-  ];
+
 
   @override
   void initState() {
     super.initState();
-    addData();
-  }
 
-  void addData() async {
-    for (var element in data) {
-      await FirebaseFirestore.instance.collection('songs').add(element);
-    }
-    print('all data added');
   }
 
   @override
