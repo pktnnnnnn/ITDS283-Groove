@@ -1,7 +1,13 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:groove/pages/AppBar.dart';
 
-class Mylist extends StatelessWidget {
+class Mylist extends StatefulWidget {
+  @override
+  State<Mylist> createState() => _MylistState();
+}
+
+class _MylistState extends State<Mylist> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -12,13 +18,20 @@ class Mylist extends StatelessWidget {
   }
 }
 
-class MyListPage extends StatelessWidget {
+class MyListPage extends StatefulWidget {
+  const MyListPage({super.key});
+
+  @override
+  State<MyListPage> createState() => _MyListPageState();
+}
+
+class _MyListPageState extends State<MyListPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: MainAppBar(context),
       body: ListView(
-        padding: EdgeInsets.symmetric(vertical: 20, horizontal: 10),
+        padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 10),
         children: [
           ListTile(
             leading: Icon(Icons.queue_music),
@@ -61,29 +74,51 @@ class MyListPage extends StatelessWidget {
             style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
           ),
           SizedBox(height: 10),
-          // Example of recent items
-          _buildRecentItem(context, 'Liked Songs', 'Playlist'),
-          _buildRecentItem(context, 'Playlist name', 'Playlist'),
-          _buildRecentItem(context, 'Playlist name', 'Playlist'),
-          _buildRecentItem(context, 'Playlist name', 'Playlist'),
-          _buildRecentItem(context, 'Artist', 'Artist'),
-          _buildRecentItem(context, 'Artist', 'Artist'),
+          _buildStreamBuilder(),
         ],
       ),
-
     );
   }
 
-  Widget _buildRecentItem(BuildContext context, String title, String subtitle) {
-    return ListTile(
-      leading: CircleAvatar(
-        child: Text(title[0]), // Display first letter of the title
+  Widget _buildStreamBuilder() {
+    return Container(
+      height: MediaQuery.of(context).size.height,
+      child: StreamBuilder<QuerySnapshot>(
+        stream: FirebaseFirestore.instance.collection('Song').snapshots(),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return Center(
+              child: CircularProgressIndicator(),
+            );
+          }
+          // Once data is loaded, display the list of recent items
+          return ListView.builder(
+            itemCount: snapshot.data!.docs.length,
+            itemBuilder: (context, index) {
+              var data = snapshot.data!.docs[index];
+              // Return each recent item
+              return ListTile(
+                leading: CircleAvatar(
+                  radius: 30,
+                  backgroundColor: Colors.grey, // Placeholder color
+                  backgroundImage: NetworkImage(
+                    '${data['image']}',
+                  ),
+                ),
+                title: Text(
+                  data['title'] ?? 'Unknown',
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                subtitle: Text(
+                  data['artist'] ?? 'Unknown',
+                ),
+              );
+            },
+          );
+        },
       ),
-      title: Text(title),
-      subtitle: Text(subtitle),
-      onTap: () {
-        // Handle tap on recent item
-      },
     );
   }
 }
