@@ -5,23 +5,37 @@ import 'package:just_audio/just_audio.dart';
 
 void main() {
   runApp(MaterialApp(
-    home: const SongPage(),
+    home: const SongPage(
+      songUrl: 'https://firebasestorage.googleapis.com/v0/b/groove-c25e1.appspot.com/o/keshi%20-%20less%20of%20you%20(Audio).mp3?alt=media&token=055b37e6-442a-4fa9-b890-2eae96b53a88',
+      title: 'Less of you',
+      artist: 'Keshi',
+      image: 'https://i.pinimg.com/564x/0f/e1/58/0fe158de14c78a315fc87a01da586ddd.jpg',
+    ),
   ));
 }
 
 class SongPage extends StatefulWidget {
-  const SongPage({Key? key}) : super(key: key);
+  final String songUrl;
+  final String title;
+  final String artist;
+  final String image;
+  const SongPage({
+    required this.songUrl,
+    required this.title,
+    required this.artist,
+    required this.image,
+    Key? key,
+  }) : super(key: key);
 
   @override
   State<SongPage> createState() => _SongPageState();
 }
 
 class _SongPageState extends State<SongPage> {
-  bool click = true;
+  
   final player = AudioPlayer();
+  bool click = true;
   bool isPlaying = false;
-  String songUrl =
-      "https://firebasestorage.googleapis.com/v0/b/groove-c25e1.appspot.com/o/keshi%20-%20less%20of%20you%20(Audio).mp3?alt=media&token=055b37e6-442a-4fa9-b890-2eae96b53a88";
   Duration duration = Duration.zero;
   Duration position = Duration.zero;
   @override
@@ -31,7 +45,7 @@ class _SongPageState extends State<SongPage> {
   }
 
   bindPlayer() async {
-    await player.setUrl(songUrl);
+    await player.setUrl(widget.songUrl);
     duration = player.duration!;
     setState(() {});
     player.positionStream.listen((event) {
@@ -63,8 +77,7 @@ class _SongPageState extends State<SongPage> {
         Expanded(
             child: Center(
           child: ArtworkImage(
-              image:
-                  "https://i.pinimg.com/564x/0f/e1/58/0fe158de14c78a315fc87a01da586ddd.jpg"),
+              image:widget.image,),
         )),
         Expanded(
           child: Padding(
@@ -75,7 +88,7 @@ class _SongPageState extends State<SongPage> {
                 children: [
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [Text("Song Title"), Text("Artist")],
+                    children: [Text(widget.title), Text(widget.artist)],
                   ),
                   ElevatedButton(
                     onPressed: () {
@@ -179,3 +192,5 @@ String formatTime(Duration duration) {
   String seconds = duration.inSeconds.remainder(60).toString().padLeft(2, '0');
   return "$minutes:$seconds";
 }
+
+
