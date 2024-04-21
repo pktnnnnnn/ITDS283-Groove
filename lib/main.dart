@@ -1,19 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:groove/pages/Home.dart';
-
-// class HomePage extends StatelessWidget {
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       appBar: AppBar(
-//         title: Text('Home Page'),
-//       ),
-//       body: Center(
-//         child: Text('Welcome to the Home Page'),
-//       ),
-//     );
-//   }
-// }
+// import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_core/firebase_core.dart';
 
 class LoginPage extends StatelessWidget {
   @override
@@ -98,49 +86,17 @@ class LoginPage extends StatelessWidget {
   }
 }
 
-// class _MyAppState extends State<MyApp> {
-//   int _selectedIndex = 0;
 
-//   final List<Widget> _pages = [
-//     LoginPage(),
-//     HomePage(),
-//   ];
 
-//   void _onItemTapped(int index) {
-//     setState(() {
-//       _selectedIndex = index;
-//     });
-//   }
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return MaterialApp(
-//       home: Scaffold(
-//         appBar: AppBar(
-//           title: Text('My App'),
-//         ),
-//         body: _pages[_selectedIndex],
-//         bottomNavigationBar: _selectedIndex == 1 ? BottomNavigationBar(
-//           currentIndex: _selectedIndex,
-//           selectedItemColor: Colors.amber[800],
-//           onTap: _onItemTapped,
-//           items: const <BottomNavigationBarItem>[
-//             BottomNavigationBarItem(
-//               icon: Icon(Icons.home_filled),
-//               label: 'Home',
-//             ),
-//             BottomNavigationBarItem(
-//               icon: Icon(Icons.account_circle_outlined),
-//               label: 'My Account',
-//             ),
-//           ],
-//         ) : null,
-//       ),
-//     );
-//   }
+// void main() {
+//   runApp(MaterialApp(
+//     home: LoginPage(),
+//   ));
 // }
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(MaterialApp(
     home: LoginPage(),
   ));
