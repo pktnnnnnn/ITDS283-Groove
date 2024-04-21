@@ -1,4 +1,3 @@
-import 'package:audio_video_progress_bar/audio_video_progress_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:groove/assets/ArtworkImage.dart';
 import 'package:just_audio/just_audio.dart';
