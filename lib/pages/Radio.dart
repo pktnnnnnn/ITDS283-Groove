@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:groove/pages/Song.dart';
 
 class RadioPage extends StatefulWidget {
   const RadioPage({Key? key}) : super(key: key);
@@ -12,7 +13,7 @@ class _RadioPageState extends State<RadioPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-       appBar: AppBar(
+      appBar: AppBar(
         title: Text('Radio'),
         actions: [
           IconButton(
@@ -27,7 +28,8 @@ class _RadioPageState extends State<RadioPage> {
         padding: EdgeInsets.all(20.0),
         children: [
           FutureBuilder<QuerySnapshot>(
-            future: FirebaseFirestore.instance.collection('Song').limit(5).get(),
+            future:
+                FirebaseFirestore.instance.collection('Song').limit(5).get(),
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
                 return Center(child: CircularProgressIndicator());
@@ -38,23 +40,43 @@ class _RadioPageState extends State<RadioPage> {
                 children: [
                   Text(
                     'Top Songs',
-                    style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
+                    style:
+                        TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
                   ),
                   SizedBox(height: 10.0),
                   Column(
                     children: List.generate(
                       songs.length,
-                      (index) => Card(
-                        elevation: 2.0,
-                        child: ListTile(
-                          leading: Text('${index + 1}'),
-                          title: Text(songs[index]['title'] ?? 'Unknown'),
-                          subtitle: Text(songs[index]['artist'] ?? 'Unknown'),
-                          trailing: Icon(Icons.more_vert),
+                      (index) => GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => SongPage(
+                                songUrl: songs[index]['audio'] ??
+                                    "", // Pass the audio URL
+                                title: songs[index]['title'] ??
+                                    "", // Pass the song title
+                                artist: songs[index]['artist'] ??
+                                    "", // Pass the artist
+                                image: songs[index]['image'] ??
+                                    "", // Pass the image URL
+                              ),
+                            ),
+                          );
+                        },
+                        child: Card(
+                          elevation: 2.0,
+                          child: ListTile(
+                            leading: Text('${index + 1}'),
+                            title: Text(songs[index]['title'] ?? 'Unknown'),
+                            subtitle: Text(songs[index]['artist'] ?? 'Unknown'),
+                            trailing: Icon(Icons.more_vert),
+                          ),
                         ),
                       ),
                     ),
-                  ),
+                  )
                 ],
               );
             },
@@ -75,7 +97,6 @@ class _RadioPageState extends State<RadioPage> {
           ),
         ],
       ),
-
     );
   }
 
