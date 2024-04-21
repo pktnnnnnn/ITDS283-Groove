@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:groove/pages/AppBar.dart';
 import 'package:groove/pages/Song.dart';
 
 class RadioPage extends StatefulWidget {
@@ -13,23 +14,13 @@ class _RadioPageState extends State<RadioPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Radio'),
-        actions: [
-          IconButton(
-            icon: Icon(Icons.search),
-            onPressed: () {
-              // Add your search functionality here
-            },
-          ),
-        ],
-      ),
+      appBar: MainAppBar(context),
       body: ListView(
         padding: EdgeInsets.all(20.0),
         children: [
           FutureBuilder<QuerySnapshot>(
             future:
-                FirebaseFirestore.instance.collection('Song').limit(5).get(),
+                FirebaseFirestore.instance.collection('Song').limit(10).get(),
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
                 return Center(child: CircularProgressIndicator());
@@ -106,7 +97,6 @@ class _RadioPageState extends State<RadioPage> {
                             ),
                           ),
                         ),
-
                       ),
                     ),
                   )
@@ -114,20 +104,7 @@ class _RadioPageState extends State<RadioPage> {
               );
             },
           ),
-          SizedBox(height: 20.0),
-          Text(
-            'New waves',
-            style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
-          ),
-          SizedBox(height: 10.0),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              _buildCircularCard(),
-              _buildCircularCard(),
-              _buildCircularCard(),
-            ],
-          ),
+
         ],
       ),
     );
