@@ -3,6 +3,7 @@ import 'package:groove/pages/Profile.dart';
 import 'package:groove/pages/Search.dart';
 
 AppBar MainAppBar(BuildContext context) {
+  
     return AppBar(
       title: const Text('Groove'),
       actions: [
