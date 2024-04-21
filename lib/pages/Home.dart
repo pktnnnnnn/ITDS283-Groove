@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:groove/pages/Profile.dart';
 import 'package:groove/pages/Song.dart';
-import  'package:groove/pages/AppBar.dart';
+import 'package:groove/pages/AppBar.dart';
 import 'package:groove/pages/Mylist.dart';
 import 'package:groove/pages/Radio.dart';
-
-
-
 
 class MyApp extends StatefulWidget {
   const MyApp({Key? key}) : super(key: key);
@@ -21,10 +18,12 @@ class _MyAppState extends State<MyApp> {
   final List<Widget> _pages = [
     HomePage(),
     SongPage(
-      songUrl: 'https://firebasestorage.googleapis.com/v0/b/groove-c25e1.appspot.com/o/keshi%20-%20less%20of%20you%20(Audio).mp3?alt=media&token=055b37e6-442a-4fa9-b890-2eae96b53a88',
+      songUrl:
+          'https://firebasestorage.googleapis.com/v0/b/groove-c25e1.appspot.com/o/keshi%20-%20less%20of%20you%20(Audio).mp3?alt=media&token=055b37e6-442a-4fa9-b890-2eae96b53a88',
       title: 'Less of you',
       artist: 'Keshi',
-      image: 'https://i.pinimg.com/564x/0f/e1/58/0fe158de14c78a315fc87a01da586ddd.jpg',
+      image:
+          'https://i.pinimg.com/564x/0f/e1/58/0fe158de14c78a315fc87a01da586ddd.jpg',
     ),
     RadioPage(),
     MyListPage(),
@@ -44,7 +43,6 @@ class _MyAppState extends State<MyApp> {
         body: _pages[_selectedIndex],
         bottomNavigationBar: BottomNavigationBar(
           currentIndex: _selectedIndex,
-          
           unselectedItemColor: Colors.grey,
           selectedItemColor: Colors.amber[800],
           onTap: _onItemTapped,
@@ -71,7 +69,6 @@ class _MyAppState extends State<MyApp> {
     );
   }
 }
-
 
 class HomePage extends StatelessWidget {
   @override
@@ -115,34 +112,30 @@ class HomePage extends StatelessWidget {
             style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
           ),
           SizedBox(height: 10.0),
-          Card(
-            elevation: 2.0,
-            child: Container(
-              height: 200.0,
-              child: Center(
-                child: Text('Placeholder for content'),
-              ),
-            ),
-          ),
-          SizedBox(height: 20.0),
-          Card(
-            elevation: 2.0,
-            child: ListTile(
-              leading: Icon(Icons.play_arrow),
-              title: Text('Song Title'),
-              subtitle: Text('Artist'),
-              trailing: IconButton(
-                icon: Icon(Icons.more_vert),
-                onPressed: () {
-                  // Add your more actions functionality here
-                },
-              ),
-            ),
+          // Duplicate the placeholder for content downwards
+          ListView.builder(
+            shrinkWrap: true,
+            physics: NeverScrollableScrollPhysics(),
+            itemCount: 5, // Set the number of placeholders you want
+            itemBuilder: (BuildContext context, int index) {
+              return Padding(
+                padding: EdgeInsets.symmetric(vertical: 10.0),
+                child: Card(
+                  elevation: 2.0,
+                  child: Container(
+                    padding: EdgeInsets.all(
+                        20.0), // Add padding around the placeholder
+                    height: 200.0,
+                    child: Center(
+                      child: Text('Placeholder for content'),
+                    ),
+                  ),
+                ),
+              );
+            },
           ),
         ],
       ),
     );
   }
 }
-
-

@@ -79,26 +79,7 @@ class MyListPage extends StatelessWidget {
           _buildRecentItem(context, 'Artist', 'Artist'),
         ],
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        items: [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'Home',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.audiotrack),
-            label: 'Samples',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.radio),
-            label: 'Radio',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.library_music),
-            label: 'My List',
-          ),
-        ],
-      ),
+
     );
   }
 
