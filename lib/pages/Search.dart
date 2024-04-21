@@ -44,7 +44,7 @@ class _SearchPageState extends State<SearchPage> {
         ),
       ),
       body: StreamBuilder<QuerySnapshot>(
-        stream: FirebaseFirestore.instance.collection('songs').snapshots(),
+        stream: FirebaseFirestore.instance.collection('Song').snapshots(),
         builder: (context, snapshots) {
           if (snapshots.connectionState == ConnectionState.waiting) {
             return Center(
