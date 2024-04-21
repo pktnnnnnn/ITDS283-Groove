@@ -1,3 +1,6 @@
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, non_constant_identifier_names
+
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:groove/pages/Profile.dart';
 import 'package:groove/pages/Song.dart';
@@ -39,6 +42,7 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       home: Scaffold(
         body: _pages[_selectedIndex],
         bottomNavigationBar: BottomNavigationBar(
@@ -70,7 +74,14 @@ class _MyAppState extends State<MyApp> {
   }
 }
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
+  const HomePage({super.key});
+
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -83,58 +94,115 @@ class HomePage extends StatelessWidget {
             style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
           ),
           SizedBox(height: 10.0),
-          Container(
-            height: 120.0,
-            child: ListView.builder(
-              scrollDirection: Axis.horizontal,
-              itemCount: 3,
-              itemBuilder: (BuildContext context, int index) {
-                return Card(
-                  elevation: 2.0,
-                  child: Container(
-                    width: 120.0,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text('Song title'),
-                        SizedBox(height: 5.0),
-                        Text('Artist'),
-                      ],
-                    ),
-                  ),
-                );
-              },
-            ),
-          ),
+          buildSongList(
+              containerHeight: 120, cardWidth: 200, ParentHeight: 200),
           SizedBox(height: 20.0),
           Text(
             'Made for you',
             style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
           ),
           SizedBox(height: 10.0),
-          // Duplicate the placeholder for content downwards
-          ListView.builder(
-            shrinkWrap: true,
-            physics: NeverScrollableScrollPhysics(),
-            itemCount: 5, // Set the number of placeholders you want
-            itemBuilder: (BuildContext context, int index) {
-              return Padding(
-                padding: EdgeInsets.symmetric(vertical: 10.0),
-                child: Card(
-                  elevation: 2.0,
-                  child: Container(
-                    padding: EdgeInsets.all(
-                        20.0), // Add padding around the placeholder
-                    height: 200.0,
-                    child: Center(
-                      child: Text('Placeholder for content'),
-                    ),
-                  ),
-                ),
-              );
-            },
+          Column(
+            children: [
+              buildSongList(
+                  containerHeight: 200,
+                  cardWidth: 200,
+                  scrollDirection: Axis.vertical,
+                  ParentHeight: MediaQuery.of(context).size.height),
+            ],
           ),
         ],
+      ),
+    );
+  }
+
+  Widget buildSongList({
+    required double ParentHeight,
+    required double containerHeight,
+    required double cardWidth,
+    Axis scrollDirection = Axis.horizontal,
+  }) {
+    return Container(
+      height: ParentHeight,
+      child: StreamBuilder<QuerySnapshot>(
+        stream: FirebaseFirestore.instance.collection('Song').snapshots(),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return Center(
+              child: CircularProgressIndicator(),
+            );
+          }
+          if (snapshot.hasError) {
+            return Center(
+              child: Text('Error: ${snapshot.error}'),
+            );
+          }
+          // If the stream has data
+          return Container(
+            height: containerHeight,
+            child: ListView.builder(
+              scrollDirection: scrollDirection,
+              itemCount: snapshot.data!.docs.length,
+              itemBuilder: (BuildContext context, int index) {
+                var songData = snapshot.data!.docs[index];
+                return ClipRRect(
+                  borderRadius: BorderRadius.circular(20.0),
+                  child: Card(
+                    elevation: 2.0,
+                    child: Container(
+                      width: cardWidth,
+                      height: containerHeight,
+                      child: Stack(
+                        fit: StackFit.expand,
+                        children: [
+                          // Image
+                          ClipRRect(
+                            borderRadius: BorderRadius.circular(4.0),
+                            child: Image.network(
+                              '${songData['image']}',
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                          // Title and Artist overlay
+                          Positioned(
+                            bottom: 0,
+                            left: 0,
+                            right: 0,
+                            child: Container(
+                              padding: EdgeInsets.all(8.0),
+                              color: Colors.black54,
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    songData['title'],
+                                    style: TextStyle(
+                                      fontSize: 14.0,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.white,
+                                    ),
+                                  ),
+                                  SizedBox(height: 2.0),
+                                  Text(
+                                    songData['artist'],
+                                    style: TextStyle(
+                                      fontSize: 12.0,
+                                      color: Colors.white,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                );
+              },
+            ),
+          );
+        },
       ),
     );
   }

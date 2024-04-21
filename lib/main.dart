@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:groove/pages/Home.dart';
-// import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 
 class LoginPage extends StatelessWidget {
@@ -98,6 +97,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   runApp(MaterialApp(
-    home: LoginPage(),
+    debugShowCheckedModeBanner: false,
+    home: MyApp(),
   ));
 }
