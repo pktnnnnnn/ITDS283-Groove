@@ -67,13 +67,46 @@ class _RadioPageState extends State<RadioPage> {
                         },
                         child: Card(
                           elevation: 2.0,
-                          child: ListTile(
-                            leading: Text('${index + 1}'),
-                            title: Text(songs[index]['title'] ?? 'Unknown'),
-                            subtitle: Text(songs[index]['artist'] ?? 'Unknown'),
-                            trailing: Icon(Icons.more_vert),
+                          child: Container(
+                            decoration: BoxDecoration(
+                              image: DecorationImage(
+                                image:
+                                    NetworkImage(songs[index]['image'] ?? ''),
+                                fit: BoxFit.cover,
+                                colorFilter: ColorFilter.mode(
+                                  Colors.black
+                                      .withOpacity(0.5), // Adjust opacity here
+                                  BlendMode
+                                      .darken, // You can change the blend mode as needed
+                                ),
+                              ),
+                            ),
+                            child: ListTile(
+                              leading: Text(
+                                '${index + 1}',
+                                style: TextStyle(
+                                    color:
+                                        Colors.white), // Change text color here
+                              ),
+                              title: Text(
+                                songs[index]['title'] ?? 'Unknown',
+                                style: TextStyle(
+                                    color:
+                                        Colors.white), // Change text color here
+                              ),
+                              subtitle: Text(
+                                songs[index]['artist'] ?? 'Unknown',
+                                style: TextStyle(
+                                    color:
+                                        Colors.white), // Change text color here
+                              ),
+                              trailing: Icon(Icons.more_vert,
+                                  color:
+                                      Colors.white), // Change icon color here
+                            ),
                           ),
                         ),
+
                       ),
                     ),
                   )

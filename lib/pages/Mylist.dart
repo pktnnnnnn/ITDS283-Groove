@@ -66,7 +66,7 @@ class MyListPage extends StatelessWidget {
           ),
           SizedBox(height: 30),
           Text(
-            'Recent',
+            'Download',
             style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
           ),
           SizedBox(height: 10),
