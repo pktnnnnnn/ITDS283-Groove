@@ -117,93 +117,110 @@ class _HomePageState extends State<HomePage> {
   }
 
     Widget buildSongList({
-      required double ParentHeight,
-      required double containerHeight,
-      required double cardWidth,
-      Axis scrollDirection = Axis.horizontal,
-    }) {
-      return Container(
-        height: ParentHeight,
-        child: StreamBuilder<QuerySnapshot>(
-          stream: FirebaseFirestore.instance.collection('Song').snapshots(),
-          builder: (context, snapshot) {
-            if (snapshot.connectionState == ConnectionState.waiting) {
-              return Center(
-                child: CircularProgressIndicator(),
-              );
-            }
-            if (snapshot.hasError) {
-              return Center(
-                child: Text('Error: ${snapshot.error}'),
-              );
-            }
-            // If the stream has data
-            return Container(
-              height: containerHeight,
-              child: ListView.builder(
-                scrollDirection: scrollDirection,
-                itemCount: snapshot.data!.docs.length,
-                itemBuilder: (BuildContext context, int index) {
-                  var songData = snapshot.data!.docs[index];
-                  return ClipRRect(
-                    borderRadius: BorderRadius.circular(20.0),
-                    child: Card(
-                      elevation: 2.0,
-                      child: Container(
-                        width: cardWidth,
-                        height: containerHeight,
-                        child: Stack(
-                          fit: StackFit.expand,
-                          children: [
-                            // Image
-                            ClipRRect(
-                              borderRadius: BorderRadius.circular(4.0),
-                                child: Image.network(
-                                  '${songData['image']}', 
-                                  fit: BoxFit.cover,
-                                ),
-                            ),
-                            // Title and Artist overlay
-                            Positioned(
-                              bottom: 0,
-                              left: 0,
-                              right: 0,
-                              child: Container(
-                                padding: EdgeInsets.all(8.0),
-                                color: Colors.black54,
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      songData['title'],
-                                      style: TextStyle(
-                                        fontSize: 14.0,
-                                        fontWeight: FontWeight.bold,
-                                        color: Colors.white,
-                                      ),
-                                    ),
-                                    SizedBox(height: 2.0),
-                                    Text(
-                                      songData['artist'],
-                                      style: TextStyle(
-                                        fontSize: 12.0,
-                                        color: Colors.white,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
+  required double ParentHeight,
+  required double containerHeight,
+  required double cardWidth,
+  Axis scrollDirection = Axis.horizontal,
+}) {
+  return Container(
+    height: ParentHeight,
+    child: StreamBuilder<QuerySnapshot>(
+      stream: FirebaseFirestore.instance.collection('Song').snapshots(),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return Center(
+            child: CircularProgressIndicator(),
+          );
+        }
+        if (snapshot.hasError) {
+          return Center(
+            child: Text('Error: ${snapshot.error}'),
+          );
+        }
+        // If the stream has data
+        return Container(
+          height: containerHeight,
+          child: ListView.builder(
+            scrollDirection: scrollDirection,
+            itemCount: snapshot.data!.docs.length,
+            itemBuilder: (BuildContext context, int index) {
+              var songData = snapshot.data!.docs[index];
+              return GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => SongPage(
+                        songUrl: songData['audio'] ?? "", // Pass the audio URL
+                        title: songData['title'] ?? "", // Pass the song title
+                        artist: songData['artist'] ?? "", // Pass the artist
+                        image: songData['image'] ?? "", // Pass the image URL
                       ),
                     ),
                   );
                 },
-              ),
-            );
-          },
-        ),
-      );
-    }
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(20.0),
+                  child: Card(
+                    elevation: 2.0,
+                    child: Container(
+                      width: cardWidth,
+                      height: containerHeight,
+                      child: Stack(
+                        fit: StackFit.expand,
+                        children: [
+                          // Image
+                          ClipRRect(
+                            borderRadius: BorderRadius.circular(4.0),
+                            child: Image.network(
+                              '${songData['image']}',
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                          // Title and Artist overlay
+                          Positioned(
+                            bottom: 0,
+                            left: 0,
+                            right: 0,
+                            child: Container(
+                              padding: EdgeInsets.all(8.0),
+                              color: Colors.black54,
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    songData['title'],
+                                    style: TextStyle(
+                                      fontSize: 14.0,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.white,
+                                    ),
+                                  ),
+                                  SizedBox(height: 2.0),
+                                  Text(
+                                    songData['artist'],
+                                    style: TextStyle(
+                                      fontSize: 12.0,
+                                      color: Colors.white,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              );
+            },
+          ),
+        );
+      },
+    ),
+  );
 }
+
+    }
+
