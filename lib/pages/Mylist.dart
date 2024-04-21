@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:groove/pages/AppBar.dart';
 
 class Mylist extends StatelessWidget {
   @override
@@ -15,17 +16,7 @@ class MyListPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('My List'),
-        actions: [
-          IconButton(
-            icon: Icon(Icons.search),
-            onPressed: () {
-              // Add your search functionality here
-            },
-          ),
-        ],
-      ),
+      appBar: MainAppBar(context),
       body: ListView(
         padding: EdgeInsets.symmetric(vertical: 20, horizontal: 10),
         children: [
@@ -59,14 +50,14 @@ class MyListPage extends StatelessWidget {
           ),
           ListTile(
             leading: Icon(Icons.file_download),
-            title: Text('Downloads'),
+            title: Text('Downloaded'),
             onTap: () {
               // Handle tap on Downloads
             },
           ),
           SizedBox(height: 30),
           Text(
-            'Download',
+            'Recents',
             style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
           ),
           SizedBox(height: 10),
