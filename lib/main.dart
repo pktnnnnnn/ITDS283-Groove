@@ -38,7 +38,7 @@ class LoginPage extends StatelessWidget {
               TextFormField(
                 style: TextStyle(color: Colors.white),
                 decoration: InputDecoration(
-                  hintText: 'Enter email',
+                  hintText: 'Enter username',
                   hintStyle: TextStyle(color: Colors.grey),
                   border: OutlineInputBorder(),
                   filled: true,
