@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:groove/assets/ArtworkImage.dart';
+import 'package:groove/pages/Home.dart';
 import 'package:just_audio/just_audio.dart';
 
 void main() {
@@ -151,11 +152,22 @@ class _SongPageState extends State<SongPage> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Transform.rotate(
-            angle: -1.5708, // 90 degrees in radians
-            child: Icon(Icons.arrow_back_ios_new_rounded),
-          ),
-          Icon(Icons.more_horiz_rounded)
+          IconButton(
+                    onPressed: () {
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => MyApp()));
+                    },
+                    icon: Icon(Icons.arrow_drop_down_rounded),
+                  ),
+                  IconButton(
+                    onPressed: () {},
+                    icon: Icon(Icons.more_horiz_rounded),
+                  ),
+          // Transform.rotate(
+          //   angle: -1.5708, // 90 degrees in radians
+          //   child: Icon(Icons.arrow_back_ios_new_rounded),
+          
+          // ),
+          // Icon(Icons.more_horiz_rounded)
         ],
       ),
     );
