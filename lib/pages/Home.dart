@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:groove/pages/AppBar.dart';
 import 'package:groove/pages/Profile.dart';
-import 'package:groove/pages/Search.dart';
 import 'package:groove/pages/Song.dart';
 
 import 'package:groove/pages/Mylist.dart';
@@ -77,18 +77,7 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Home'),
-        actions: [
-          IconButton(
-            icon: Icon(Icons.search),
-            onPressed: () {
-              // Add your search functionality here
-              Navigator.push(context, MaterialPageRoute(builder: (context) => SearchPage()));
-            },
-          ),
-        ],
-      ),
+      appBar: MainAppBar(context),
       body: ListView(
         padding: EdgeInsets.all(20.0),
         children: [
