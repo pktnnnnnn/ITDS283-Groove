@@ -167,6 +167,7 @@ class _SongPageState extends State<SongPage> {
         children: [
           IconButton(
                     onPressed: () {
+                      player.pause();
                       Navigator.push(context, MaterialPageRoute(builder: (context) => MyApp()));
                     },
                     icon: Icon(Icons.arrow_drop_down_rounded),

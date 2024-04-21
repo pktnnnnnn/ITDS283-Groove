@@ -67,7 +67,7 @@ class _SearchPageState extends State<SearchPage> {
                       context,
                       MaterialPageRoute(
                         builder: (context) => SongPage(
-                          songUrl: data['audioUrl'] ?? "", // Pass the audio URL
+                          songUrl: data['audio'] ?? "", // Pass the audio URL
                           title: data['title'] ?? "", // Pass the song title
                           artist: data['artist'] ?? "", // Pass the artist
                           image: data['image'] ?? "", // Pass the image URL
