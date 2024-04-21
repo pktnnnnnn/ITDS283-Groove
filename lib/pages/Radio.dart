@@ -73,21 +73,6 @@ class _RadioPageState extends State<RadioPage> {
               _buildCircularCard(),
             ],
           ),
-          SizedBox(height: 20.0),
-          Card(
-            elevation: 2.0,
-            child: ListTile(
-              leading: Icon(Icons.play_arrow),
-              title: Text('Song Title'),
-              subtitle: Text('Artist'),
-              trailing: IconButton(
-                icon: Icon(Icons.more_vert),
-                onPressed: () {
-                  // Add your more actions functionality here
-                },
-              ),
-            ),
-          ),
         ],
       ),
 

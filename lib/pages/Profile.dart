@@ -1,6 +1,8 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart'; // Import Firebase Core
-
+import 'package:image_picker/image_picker.dart'; // Import Image Picker
 
 void main() async {
   // Initialize Firebase before running the app
@@ -22,8 +24,90 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class ProfilePage extends StatelessWidget {
+class ProfilePage extends StatefulWidget {
   const ProfilePage({Key? key}) : super(key: key);
+
+  @override
+  _ProfilePageState createState() => _ProfilePageState();
+}
+
+class _ProfilePageState extends State<ProfilePage> {
+  final TextEditingController _usernameController = TextEditingController();
+
+  String _username = 'Username';
+  File? _image;
+
+  Future<void> _getImage() async {
+    final picker = ImagePicker();
+    final pickedFile = await picker.getImage(source: ImageSource.gallery);
+
+    setState(() {
+      if (pickedFile != null) {
+        _image = File(pickedFile.path);
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+    _usernameController.dispose();
+    super.dispose();
+  }
+
+  void _editProfile() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Edit Profile'),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              TextField(
+                controller: _usernameController,
+                decoration: InputDecoration(
+                  labelText: 'New Username',
+                ),
+              ),
+              SizedBox(height: 10),
+              Row(
+                children: [
+                  Expanded(
+                    child: TextButton(
+                      onPressed: _getImage,
+                      child: Text('Select Image'),
+                    ),
+                  ),
+                  SizedBox(width: 10),
+                  _image != null
+                      ? Expanded(
+                          child: CircleAvatar(
+                            backgroundImage: FileImage(_image!),
+                            radius: 25,
+                          ),
+                        )
+                      : Container(),
+                ],
+              ),
+            ],
+          ),
+          actions: [
+            TextButton(
+              onPressed: () {
+                setState(() {
+                  _username = _usernameController.text.isNotEmpty
+                      ? _usernameController.text
+                      : _username;
+                });
+                Navigator.of(context).pop();
+              },
+              child: Text('Save'),
+            ),
+          ],
+        );
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -36,12 +120,11 @@ class ProfilePage extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             CircleAvatar(
-              backgroundImage: NetworkImage(
-                  'https://qodeinteractive.com/magazine/wp-content/uploads/2020/06/16-Tame-Impala.jpg'),
+              backgroundImage: _image != null ? FileImage(_image!) : null,
               radius: 110,
             ),
             SizedBox(height: 20),
-            Text('Username', style: TextStyle(fontSize: 24)),
+            Text(_username, style: TextStyle(fontSize: 24)),
             SizedBox(height: 20),
             Column(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -52,9 +135,7 @@ class ProfilePage extends StatelessWidget {
             ),
             SizedBox(height: 20),
             ElevatedButton(
-              onPressed: () {
-                // Add your logic here
-              },
+              onPressed: _editProfile,
               child: Text('Edit Profile'),
             )
           ],
