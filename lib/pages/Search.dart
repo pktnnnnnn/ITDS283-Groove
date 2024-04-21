@@ -13,6 +13,13 @@ class _SearchPageState extends State<SearchPage> {
   String name = "";
   List<Map<String, dynamic>> data = [
     // Your data here
+    {
+      'title': 'Less of you',
+      'artist': 'Keshi',
+      'image': 'https://i.pinimg.com/564x/0f/e1/58/0fe158de14c78a315fc87a01da586ddd.jpg',
+      'audio':
+          'https://firebasestorage.googleapis.com/v0/b/groove-c25e1.appspot.com/o/keshi%20-%20less%20of%20you%20(Audio).mp3?alt=media&token=055b37e6-442a-4fa9-b890-2eae96b53a88'
+    },
   ];
 
   @override
@@ -23,7 +30,7 @@ class _SearchPageState extends State<SearchPage> {
 
   void addData() async {
     for (var element in data) {
-      await FirebaseFirestore.instance.collection('users').add(element);
+      await FirebaseFirestore.instance.collection('songs').add(element);
     }
     print('all data added');
   }
@@ -53,7 +60,7 @@ class _SearchPageState extends State<SearchPage> {
         ),
       ),
       body: StreamBuilder<QuerySnapshot>(
-        stream: FirebaseFirestore.instance.collection('users').snapshots(),
+        stream: FirebaseFirestore.instance.collection('songs').snapshots(),
         builder: (context, snapshots) {
           if (snapshots.connectionState == ConnectionState.waiting) {
             return Center(
@@ -63,12 +70,17 @@ class _SearchPageState extends State<SearchPage> {
           return ListView.builder(
             itemCount: snapshots.data!.docs.length,
             itemBuilder: (context, index) {
-              var data = snapshots.data!.docs[index].data() as Map<String, dynamic>;
+              var data =
+                  snapshots.data!.docs[index].data() as Map<String, dynamic>;
 
-              if (name.isEmpty || data['name'].toString().toLowerCase().startsWith(name.toLowerCase())) {
+              if (name.isEmpty ||
+                  data['title']
+                      .toString()
+                      .toLowerCase()
+                      .startsWith(name.toLowerCase())) {
                 return ListTile(
                   title: Text(
-                    data['name'],
+                    data['title'],
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                     style: TextStyle(
@@ -78,7 +90,7 @@ class _SearchPageState extends State<SearchPage> {
                     ),
                   ),
                   subtitle: Text(
-                    data['email'],
+                    data['artist'],
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                     style: TextStyle(

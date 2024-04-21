@@ -1,13 +1,13 @@
 {
   "project_info": {
-    "project_number": "824958260846",
-    "project_id": "itds283-project",
-    "storage_bucket": "itds283-project.appspot.com"
+    "project_number": "309892245616",
+    "project_id": "groove-c25e1",
+    "storage_bucket": "groove-c25e1.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:824958260846:android:da4b8af4efc83f2e17787f",
+        "mobilesdk_app_id": "1:309892245616:android:dcaa7e27423333477b6cb5",
         "android_client_info": {
           "package_name": "com.example.groove"
         }
@@ -15,7 +15,7 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyA9Sp_lzedcbTKm9Md23OV6XSZ3zY2vEy4"
+          "current_key": "AIzaSyB8UY6VCoDFbQFOc9H1MfTdIoCwmQl6NYQ"
         }
       ],
       "services": {
