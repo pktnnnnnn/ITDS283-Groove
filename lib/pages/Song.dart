@@ -1,4 +1,3 @@
-import 'package:audio_video_progress_bar/audio_video_progress_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:groove/assets/ArtworkImage.dart';
 import 'package:just_audio/just_audio.dart';
@@ -21,7 +20,7 @@ class _SongPageState extends State<SongPage> {
   final player = AudioPlayer();
   bool isPlaying = false;
   String songUrl =
-      "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3";
+      "https://firebasestorage.googleapis.com/v0/b/groove-c25e1.appspot.com/o/keshi%20-%20less%20of%20you%20(Audio).mp3?alt=media&token=055b37e6-442a-4fa9-b890-2eae96b53a88";
   Duration duration = Duration.zero;
   Duration position = Duration.zero;
   @override
@@ -84,8 +83,8 @@ class _SongPageState extends State<SongPage> {
                       });
                     },
                     child: Icon((click == false)
-                        ? Icons.add_circle_outline_outlined
-                        : Icons.verified_rounded),
+                        ? Icons.favorite_rounded
+                        : Icons.favorite_border_rounded),
                   )
                 ],
               ),
@@ -100,16 +99,13 @@ class _SongPageState extends State<SongPage> {
                     final seekposition = Duration(seconds: value.toInt());
                     await player.seek(seekposition);
                   }),
-              ProgressBar(
-                progress: position,
-                total: duration,
-                baseBarColor: Colors.blueAccent,
-                thumbColor: Colors.yellow,
-                progressBarColor: Colors.red,
-                onSeek: (duration) {
-                  print('User selected a new time: $duration');
-                },
-              ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(formatTime(position)),
+                      Text(formatTime(duration))
+                    ],
+                  ),
               SizedBox(
                 height: 16,
               ),
@@ -123,8 +119,8 @@ class _SongPageState extends State<SongPage> {
                   IconButton(
                     onPressed: playerAction,
                     icon: isPlaying
-                        ? Icon(Icons.play_arrow_rounded)
-                        : Icon(Icons.pause_rounded),
+                        ? Icon(Icons.pause_rounded)
+                        : Icon(Icons.play_arrow_rounded),
                   ),
                   IconButton(
                     onPressed: () {},
