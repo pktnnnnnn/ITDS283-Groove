@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:groove/pages/Profile.dart';
 import 'package:groove/pages/Search.dart';
 import 'package:groove/pages/Song.dart';
-
+import  'package:groove/pages/AppBar.dart';
 import 'package:groove/pages/Mylist.dart';
 import 'package:groove/pages/Radio.dart';
 
@@ -61,10 +61,6 @@ class _MyAppState extends State<MyApp> {
               icon: Icon(Icons.playlist_add_check_circle_outlined),
               label: 'My List',
             ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.account_circle_outlined),
-              label: 'My List',
-            ),
           ],
         ),
       ),
@@ -77,18 +73,7 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Home'),
-        actions: [
-          IconButton(
-            icon: Icon(Icons.search),
-            onPressed: () {
-              // Add your search functionality here
-              Navigator.push(context, MaterialPageRoute(builder: (context) => SearchPage()));
-            },
-          ),
-        ],
-      ),
+      appBar: MainAppBar(context),
       body: ListView(
         padding: EdgeInsets.all(20.0),
         children: [
