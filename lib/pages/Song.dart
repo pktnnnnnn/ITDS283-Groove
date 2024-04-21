@@ -3,16 +3,16 @@ import 'package:groove/assets/ArtworkImage.dart';
 import 'package:groove/pages/Home.dart';
 import 'package:just_audio/just_audio.dart';
 
-void main() {
-  runApp(MaterialApp(
-    home: const SongPage(
-      songUrl: 'https://firebasestorage.googleapis.com/v0/b/groove-c25e1.appspot.com/o/keshi%20-%20less%20of%20you%20(Audio).mp3?alt=media&token=055b37e6-442a-4fa9-b890-2eae96b53a88',
-      title: 'Less of you',
-      artist: 'Keshi',
-      image: 'https://i.pinimg.com/564x/0f/e1/58/0fe158de14c78a315fc87a01da586ddd.jpg',
-    ),
-  ));
-}
+// void main() {
+//   runApp(MaterialApp(
+//     home: const SongPage(
+//       songUrl: 'https://firebasestorage.googleapis.com/v0/b/groove-c25e1.appspot.com/o/keshi%20-%20less%20of%20you%20(Audio).mp3?alt=media&token=055b37e6-442a-4fa9-b890-2eae96b53a88',
+//       title: 'Less of you',
+//       artist: 'Keshi',
+//       image: 'https://i.pinimg.com/564x/0f/e1/58/0fe158de14c78a315fc87a01da586ddd.jpg',
+//     ),
+//   ));
+// }
 
 class SongPage extends StatefulWidget {
   final String songUrl;
@@ -176,12 +176,6 @@ class _SongPageState extends State<SongPage> {
                     onPressed: () {},
                     icon: Icon(Icons.more_horiz_rounded),
                   ),
-          // Transform.rotate(
-          //   angle: -1.5708, // 90 degrees in radians
-          //   child: Icon(Icons.arrow_back_ios_new_rounded),
-          
-          // ),
-          // Icon(Icons.more_horiz_rounded)
         ],
       ),
     );
