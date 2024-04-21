@@ -63,7 +63,7 @@ class _SongPageState extends State<SongPage> {
             child: Center(
           child: ArtworkImage(
               image:
-                  "https://qodeinteractive.com/magazine/wp-content/uploads/2020/06/16-Tame-Impala.jpg"),
+                  "https://i.pinimg.com/564x/0f/e1/58/0fe158de14c78a315fc87a01da586ddd.jpg"),
         )),
         Expanded(
           child: Padding(
