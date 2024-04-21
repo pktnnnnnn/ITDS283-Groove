@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:groove/pages/Song.dart';
 
 class SearchPage extends StatefulWidget {
   const SearchPage({Key? key}) : super(key: key);
@@ -12,11 +13,9 @@ class SearchPage extends StatefulWidget {
 class _SearchPageState extends State<SearchPage> {
   String name = "";
 
-
   @override
   void initState() {
     super.initState();
-
   }
 
   @override
@@ -62,29 +61,44 @@ class _SearchPageState extends State<SearchPage> {
                       .toString()
                       .toLowerCase()
                       .startsWith(name.toLowerCase())) {
-                return ListTile(
-                  title: Text(
-                    data['title'],
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                    style: TextStyle(
-                      color: Colors.black54,
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
+                return GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => SongPage(
+                          songUrl: data['audioUrl'] ?? "", // Pass the audio URL
+                          title: data['title'] ?? "", // Pass the song title
+                          artist: data['artist'] ?? "", // Pass the artist
+                          image: data['image'] ?? "", // Pass the image URL
+                        ),
+                      ),
+                    );
+                  },
+                  child: ListTile(
+                    title: Text(
+                      data['title'] ?? "",
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: TextStyle(
+                        color: Colors.black54,
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
-                  ),
-                  subtitle: Text(
-                    data['artist'],
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                    style: TextStyle(
-                      color: Colors.black54,
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
+                    subtitle: Text(
+                      data['artist'] ?? "",
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: TextStyle(
+                        color: Colors.black54,
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
-                  ),
-                  leading: CircleAvatar(
-                    backgroundImage: NetworkImage(data['image']),
+                    leading: CircleAvatar(
+                      backgroundImage: NetworkImage(data['image'] ?? ""),
+                    ),
                   ),
                 );
               }

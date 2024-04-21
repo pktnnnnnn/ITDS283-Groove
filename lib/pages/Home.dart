@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:groove/pages/Profile.dart';
-import 'package:groove/pages/Search.dart';
 import 'package:groove/pages/Song.dart';
 import  'package:groove/pages/AppBar.dart';
 import 'package:groove/pages/Mylist.dart';
@@ -21,7 +20,12 @@ class _MyAppState extends State<MyApp> {
 
   final List<Widget> _pages = [
     HomePage(),
-    SongPage(),
+    SongPage(
+      songUrl: 'https://firebasestorage.googleapis.com/v0/b/groove-c25e1.appspot.com/o/keshi%20-%20less%20of%20you%20(Audio).mp3?alt=media&token=055b37e6-442a-4fa9-b890-2eae96b53a88',
+      title: 'Less of you',
+      artist: 'Keshi',
+      image: 'https://i.pinimg.com/564x/0f/e1/58/0fe158de14c78a315fc87a01da586ddd.jpg',
+    ),
     RadioPage(),
     MyListPage(),
     ProfilePage()
