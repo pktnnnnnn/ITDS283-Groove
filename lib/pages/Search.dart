@@ -5,7 +5,7 @@ import 'package:groove/pages/Home.dart';
 import 'package:groove/pages/Song.dart';
 
 class SearchPage extends StatefulWidget {
-  const SearchPage({Key? key}) : super(key: key);
+  const SearchPage({super.key});
 
   @override
   State<SearchPage> createState() => _SearchPageState();
@@ -26,14 +26,13 @@ class _SearchPageState extends State<SearchPage> {
         leading: IconButton(
           onPressed: () {
             Navigator.push(
-                context, MaterialPageRoute(builder: (context) => MyApp()));
-            ;
+                context, MaterialPageRoute(builder: (context) => const MyApp()));
           },
-          icon: Icon(Icons.arrow_back_ios_new_rounded),
+          icon: const Icon(Icons.arrow_back_ios_new_rounded),
         ),
         title: Card(
           child: TextField(
-            decoration: InputDecoration(
+            decoration: const InputDecoration(
               prefixIcon: Icon(Icons.search_rounded),
               hintText: 'Search',
             ),
@@ -49,7 +48,7 @@ class _SearchPageState extends State<SearchPage> {
         stream: FirebaseFirestore.instance.collection('Song').snapshots(),
         builder: (context, snapshots) {
           if (snapshots.connectionState == ConnectionState.waiting) {
-            return Center(
+            return const Center(
               child: CircularProgressIndicator(),
             );
           }
@@ -83,7 +82,7 @@ class _SearchPageState extends State<SearchPage> {
                       data['title'] ?? "",
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
-                      style: TextStyle(
+                      style: const TextStyle(
                         color: Colors.black54,
                         fontSize: 16,
                         fontWeight: FontWeight.bold,
@@ -93,7 +92,7 @@ class _SearchPageState extends State<SearchPage> {
                       data['artist'] ?? "",
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
-                      style: TextStyle(
+                      style: const TextStyle(
                         color: Colors.black54,
                         fontSize: 16,
                         fontWeight: FontWeight.bold,
@@ -117,7 +116,7 @@ class _SearchPageState extends State<SearchPage> {
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  runApp(MaterialApp(
+  runApp(const MaterialApp(
     home: MyApp(),
   ));
 }

@@ -14,18 +14,18 @@ void main() async {
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+  const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: const ProfilePage(), // Set ProfilePage as the home page
+    return const MaterialApp(
+      home: ProfilePage(), // Set ProfilePage as the home page
     );
   }
 }
 
 class ProfilePage extends StatefulWidget {
-  const ProfilePage({Key? key}) : super(key: key);
+  const ProfilePage({super.key});
 
   @override
   _ProfilePageState createState() => _ProfilePageState();
@@ -59,26 +59,26 @@ class _ProfilePageState extends State<ProfilePage> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text('Edit Profile'),
+          title: const Text('Edit Profile'),
           content: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
               TextField(
                 controller: _usernameController,
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   labelText: 'New Username',
                 ),
               ),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               Row(
                 children: [
                   Expanded(
                     child: TextButton(
                       onPressed: _getImage,
-                      child: Text('Select Image'),
+                      child: const Text('Select Image'),
                     ),
                   ),
-                  SizedBox(width: 10),
+                  const SizedBox(width: 10),
                   _image != null
                       ? Expanded(
                           child: CircleAvatar(
@@ -101,7 +101,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 });
                 Navigator.of(context).pop();
               },
-              child: Text('Save'),
+              child: const Text('Save'),
             ),
           ],
         );
@@ -113,7 +113,7 @@ class _ProfilePageState extends State<ProfilePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Profile'),
+        title: const Text('Profile'),
       ),
       body: Center(
         child: Column(
@@ -123,20 +123,20 @@ class _ProfilePageState extends State<ProfilePage> {
               backgroundImage: _image != null ? FileImage(_image!) : null,
               radius: 110,
             ),
-            SizedBox(height: 20),
-            Text(_username, style: TextStyle(fontSize: 24)),
-            SizedBox(height: 20),
-            Column(
+            const SizedBox(height: 20),
+            Text(_username, style: const TextStyle(fontSize: 24)),
+            const SizedBox(height: 20),
+            const Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text('0'),
                 Text('Following'),
               ],
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             ElevatedButton(
               onPressed: _editProfile,
-              child: Text('Edit Profile'),
+              child: const Text('Edit Profile'),
             )
           ],
         ),

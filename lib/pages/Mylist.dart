@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:groove/pages/AppBar.dart';
 
 class Mylist extends StatefulWidget {
+  const Mylist({super.key});
+
   @override
   State<Mylist> createState() => _MylistState();
 }
@@ -13,7 +15,7 @@ class _MylistState extends State<Mylist> {
     return MaterialApp(
       title: 'My List',
       theme: ThemeData.dark(),
-      home: MyListPage(),
+      home: const MyListPage(),
     );
   }
 }
@@ -34,46 +36,46 @@ class _MyListPageState extends State<MyListPage> {
         padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 10),
         children: [
           ListTile(
-            leading: Icon(Icons.queue_music),
-            title: Text('Playlists'),
+            leading: const Icon(Icons.queue_music),
+            title: const Text('Playlists'),
             onTap: () {
               // Handle tap on Playlists
             },
           ),
           ListTile(
-            leading: Icon(Icons.music_note),
-            title: Text('Songs'),
+            leading: const Icon(Icons.music_note),
+            title: const Text('Songs'),
             onTap: () {
               // Handle tap on Songs
             },
           ),
           ListTile(
-            leading: Icon(Icons.album),
-            title: Text('Albums'),
+            leading: const Icon(Icons.album),
+            title: const Text('Albums'),
             onTap: () {
               // Handle tap on Albums
             },
           ),
           ListTile(
-            leading: Icon(Icons.person),
-            title: Text('Artists'),
+            leading: const Icon(Icons.person),
+            title: const Text('Artists'),
             onTap: () {
               // Handle tap on Artists
             },
           ),
           ListTile(
-            leading: Icon(Icons.file_download),
-            title: Text('Downloaded'),
+            leading: const Icon(Icons.file_download),
+            title: const Text('Downloaded'),
             onTap: () {
               // Handle tap on Downloads
             },
           ),
-          SizedBox(height: 30),
-          Text(
+          const SizedBox(height: 30),
+          const Text(
             'Recents',
             style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
           ),
-          SizedBox(height: 10),
+          const SizedBox(height: 10),
           _buildStreamBuilder(),
         ],
       ),
@@ -81,13 +83,13 @@ class _MyListPageState extends State<MyListPage> {
   }
 
   Widget _buildStreamBuilder() {
-    return Container(
+    return SizedBox(
       height: MediaQuery.of(context).size.height,
       child: StreamBuilder<QuerySnapshot>(
         stream: FirebaseFirestore.instance.collection('Song').snapshots(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return Center(
+            return const Center(
               child: CircularProgressIndicator(),
             );
           }
@@ -107,7 +109,7 @@ class _MyListPageState extends State<MyListPage> {
                 ),
                 title: Text(
                   data['title'] ?? 'Unknown',
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontWeight: FontWeight.bold,
                   ),
                 ),

@@ -24,8 +24,8 @@ class SongPage extends StatefulWidget {
     required this.title,
     required this.artist,
     required this.image,
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   State<SongPage> createState() => _SongPageState();
@@ -48,7 +48,7 @@ class _SongPageState extends State<SongPage> {
     duration = player.duration!;
     setState(() {});
     player.positionStream.listen((event) {
-      Duration temp = event as Duration;
+      Duration temp = event;
       position = temp;
       setState(() {});
     });
@@ -70,7 +70,7 @@ class _SongPageState extends State<SongPage> {
     return Scaffold(
       body: Column(children: [
         OptionButton(),
-        SizedBox(
+        const SizedBox(
           height: 40,
         ),
         Expanded(
@@ -81,7 +81,7 @@ class _SongPageState extends State<SongPage> {
         )),
         Expanded(
           child: Padding(
-            padding: EdgeInsets.all(24),
+            padding: const EdgeInsets.all(24),
             child: Column(children: [
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -102,7 +102,7 @@ class _SongPageState extends State<SongPage> {
                   )
                 ],
               ),
-              SizedBox(
+              const SizedBox(
                 height: 16,
               ),
               Slider(
@@ -120,7 +120,7 @@ class _SongPageState extends State<SongPage> {
                   Text(formatTime(duration))
                 ],
               ),
-              SizedBox(
+              const SizedBox(
                 height: 16,
               ),
               Row(
@@ -128,24 +128,24 @@ class _SongPageState extends State<SongPage> {
                 children: [
                   IconButton(
                     onPressed: () {},
-                    icon: Icon(Icons.skip_previous_rounded),
+                    icon: const Icon(Icons.skip_previous_rounded),
                   ),
                   IconButton(
                     onPressed: playerAction,
                     icon: isPlaying
-                        ? Icon(Icons.pause_rounded)
-                        : Icon(Icons.play_arrow_rounded),
+                        ? const Icon(Icons.pause_rounded)
+                        : const Icon(Icons.play_arrow_rounded),
                   ),
                   IconButton(
                     onPressed: () {},
-                    icon: Icon(Icons.skip_next_rounded),
+                    icon: const Icon(Icons.skip_next_rounded),
                   ),
                 ],
               ),
-              SizedBox(
+              const SizedBox(
                 height: 16,
               ),
-              Row(
+              const Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Icon(Icons.shuffle_rounded),
@@ -161,7 +161,7 @@ class _SongPageState extends State<SongPage> {
 
   Container OptionButton() {
     return Container(
-      margin: EdgeInsets.only(top: 40, left: 20, right: 20),
+      margin: const EdgeInsets.only(top: 40, left: 20, right: 20),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -169,13 +169,13 @@ class _SongPageState extends State<SongPage> {
             onPressed: () {
               player.pause();
               Navigator.push(
-                  context, MaterialPageRoute(builder: (context) => MyApp()));
+                  context, MaterialPageRoute(builder: (context) => const MyApp()));
             },
-            icon: Icon(Icons.arrow_drop_down_rounded),
+            icon: const Icon(Icons.arrow_drop_down_rounded),
           ),
           IconButton(
             onPressed: () {},
-            icon: Icon(Icons.more_horiz_rounded),
+            icon: const Icon(Icons.more_horiz_rounded),
           ),
         ],
       ),

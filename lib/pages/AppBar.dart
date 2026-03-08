@@ -11,7 +11,7 @@ AppBar MainAppBar(BuildContext context) {
           onPressed: () {
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => SearchPage()),
+              MaterialPageRoute(builder: (context) => const SearchPage()),
             );
           },
           icon: const Icon(Icons.search_rounded),
@@ -20,10 +20,10 @@ AppBar MainAppBar(BuildContext context) {
             onTap: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => ProfilePage()),
+                MaterialPageRoute(builder: (context) => const ProfilePage()),
               );
             },
-            child: CircleAvatar(
+            child: const CircleAvatar(
               backgroundImage: NetworkImage(
                   'https://qodeinteractive.com/magazine/wp-content/uploads/2020/06/16-Tame-Impala.jpg'),
               radius: 16,

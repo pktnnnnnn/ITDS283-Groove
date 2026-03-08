@@ -9,7 +9,7 @@ import 'package:groove/pages/Mylist.dart';
 import 'package:groove/pages/Radio.dart';
 
 class MyApp extends StatefulWidget {
-  const MyApp({Key? key}) : super(key: key);
+  const MyApp({super.key});
 
   @override
   _MyAppState createState() => _MyAppState();
@@ -122,7 +122,7 @@ class _HomePageState extends State<HomePage> {
   required double cardWidth,
   Axis scrollDirection = Axis.horizontal,
 }) {
-  return Container(
+  return SizedBox(
     height: ParentHeight,
     child: StreamBuilder<QuerySnapshot>(
       stream: FirebaseFirestore.instance.collection('Song').snapshots(),
@@ -138,7 +138,7 @@ class _HomePageState extends State<HomePage> {
           );
         }
         // If the stream has data
-        return Container(
+        return SizedBox(
           height: containerHeight,
           child: ListView.builder(
             scrollDirection: scrollDirection,
@@ -163,7 +163,7 @@ class _HomePageState extends State<HomePage> {
                   borderRadius: BorderRadius.circular(20.0),
                   child: Card(
                     elevation: 2.0,
-                    child: Container(
+                    child: SizedBox(
                       width: cardWidth,
                       height: containerHeight,
                       child: Stack(

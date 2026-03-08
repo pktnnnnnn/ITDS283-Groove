@@ -3,6 +3,8 @@ import 'package:groove/pages/Home.dart';
 import 'package:firebase_core/firebase_core.dart';
 
 class LoginPage extends StatelessWidget {
+  const LoginPage({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -13,7 +15,7 @@ class LoginPage extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text(
+              const Text(
                 'Groove',
                 style: TextStyle(
                   color: Colors.white,
@@ -21,31 +23,31 @@ class LoginPage extends StatelessWidget {
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              SizedBox(height: 20.0),
+              const SizedBox(height: 20.0),
               TextFormField(
-                style: TextStyle(color: Colors.white),
+                style: const TextStyle(color: Colors.white),
                 decoration: InputDecoration(
                   hintText: 'Enter username',
-                  hintStyle: TextStyle(color: Colors.grey),
-                  border: OutlineInputBorder(),
+                  hintStyle: const TextStyle(color: Colors.grey),
+                  border: const OutlineInputBorder(),
                   filled: true,
                   fillColor: Colors.grey[800],
-                  contentPadding: EdgeInsets.all(15.0),
+                  contentPadding: const EdgeInsets.all(15.0),
                 ),
               ),
-              SizedBox(height: 20.0),
+              const SizedBox(height: 20.0),
               TextFormField(
-                style: TextStyle(color: Colors.white),
+                style: const TextStyle(color: Colors.white),
                 decoration: InputDecoration(
                   hintText: 'Enter password',
-                  hintStyle: TextStyle(color: Colors.grey),
-                  border: OutlineInputBorder(),
+                  hintStyle: const TextStyle(color: Colors.grey),
+                  border: const OutlineInputBorder(),
                   filled: true,
                   fillColor: Colors.grey[800],
-                  contentPadding: EdgeInsets.all(15.0),
+                  contentPadding: const EdgeInsets.all(15.0),
                 ),
               ),
-              SizedBox(height: 20.0),
+              const SizedBox(height: 20.0),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -53,7 +55,7 @@ class LoginPage extends StatelessWidget {
                     onTap: () {
                       // Add your forget password functionality here
                     },
-                    child: Text(
+                    child: const Text(
                       'Forget Password?',
                       style: TextStyle(color: Colors.white),
                     ),
@@ -62,18 +64,18 @@ class LoginPage extends StatelessWidget {
                     onPressed: () {
                       // Add your login functionality here
                       Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => MyApp()));
+                          MaterialPageRoute(builder: (context) => const MyApp()));
                     },
-                    child: Text('Login'),
+                    child: const Text('Login'),
                   ),
                 ],
               ),
-              SizedBox(height: 20.0),
+              const SizedBox(height: 20.0),
               TextButton(
                 onPressed: () {
                   // Add your create account functionality here
                 },
-                child: Text(
+                child: const Text(
                   'Create Account',
                   style: TextStyle(color: Colors.white),
                 ),
@@ -95,7 +97,7 @@ class LoginPage extends StatelessWidget {
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  runApp(MaterialApp(
+  runApp(const MaterialApp(
     debugShowCheckedModeBanner: false,
     home: MyApp(),
   ));
